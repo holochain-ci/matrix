@@ -1,0 +1,74 @@
+doctype html
+html
+  head
+    title = "Quality Matrix: #{github_org} repos"
+
+    script src="/js/jquery-3.3.1.min.js"
+    script src="/js/datatables.min.js"
+
+    link rel="stylesheet" type="text/css" href="/styles/jquery.dataTables.css"
+    link rel="stylesheet" type="text/css" href="/styles/fixedHeader.dataTables.css"
+    link rel="stylesheet" type="text/css" href="/styles/beauty.css"
+    link rel="stylesheet" type="text/css" href="/styles/app.css"
+
+  body
+    table.stripe.order-column.compact.cell-border
+      thead
+        tr
+          th
+          th.left colspan="1" Builds
+          / th.left colspan="2" README.md
+          / th.left colspan="2" Files
+          th.left colspan="2" Github
+        tr
+          th.left Repository
+
+          / Builds
+          th.left Travis CI
+          / th.left Circle CI
+
+          / README.md
+          / th exists
+          / th > 500 chars
+
+          / Files
+          / th license
+          / th contribute
+
+          / Github
+          th Stars
+          th Open Issues
+      tbody
+        = for repo <- repos do
+          tr
+            td.left = repo["name"]
+
+            / Builds
+            td
+              a href="https://travis-ci.org/#{github_org}/#{repo["name"]}"
+                img src="https://travis-ci.org/#{github_org}/#{repo["name"]}.svg?branch=master"
+            / td
+              a href="https://circleci.com/gh/#{github_org}/#{repo["name"]}"
+                / img src="https://circleci.com/gh/#{github_org}/#{repo["name"]}.svg?style=svg" onError="this.parentElement.href = 'https://circleci.com/add-projects'; this.src = 'images/circle-ci-no-builds.svg'"
+
+            / README.md
+            / td
+            / td
+
+            / Files
+            / td
+            / td
+
+            / Github
+            td = repo["stargazers_count"]
+            td = repo["open_issues"]
+
+    javascript:
+      $(function() {
+        $('table').DataTable({
+          paging: false,
+          searching: false,
+          fixedHeader: true
+        })
+      })
+

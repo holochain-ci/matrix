@@ -1,21 +1,31 @@
-# Qualitymatrix
+# Matrix
 
-**TODO: Add description**
+Matrix of project with health metrics and stats   
 
-## Installation
+## Development server
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `qualitymatrix` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:qualitymatrix, "~> 0.1.0"}
-  ]
-end
+```
+mix deps.get && mix run --no-halt
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/qualitymatrix](https://hexdocs.pm/qualitymatrix).
+Then visit (eg) <http://localhost:4001/ipfs>
 
+## Docker Compose
+
+### Fetch dependencies
+
+```
+docker-compose run --rm www mix deps.get
+```
+
+*All mix tasks for a service can be run this way, such as tests for a single service.*
+
+### Run all services
+
+```
+docker-compose up
+```
+
+* Use `-d` to run in the background
+* Use `--build` to ensure images are rebuilt
+* Use `docker-compose down` to stop all services

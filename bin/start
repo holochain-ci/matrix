@@ -1,0 +1,1 @@
+elixir --sname app -S mix run --no-halt
