@@ -32,7 +32,7 @@
 	</tr>
 	{#each repos as repo}
 		<tr>
-			<th>{repo}</th>
+			<th><a href="https://github.com/{repo}">{repo}</a></th>
 			<th>...</th>
 			<th>
 				<a href="https://circleci.com/gh/{repo}">
