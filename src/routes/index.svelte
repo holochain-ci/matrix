@@ -6,18 +6,13 @@
 
 		if (res.ok) {
 			const json = await res.json();
-			// console.log(json);
-
-			const _repos = await json.repos;
-			// console.log(_repos);
-
+			const repos = await json.repos;
 			return {
-				props: { repos: _repos }
+				props: { repos }
 			};
 		}
 
 		const { message } = await res.json();
-
 		return {
 			error: new Error(message)
 		};
@@ -39,7 +34,15 @@
 		<tr>
 			<th>{repo}</th>
 			<th>...</th>
-			<th>...</th>
+			<th>
+				<a href="https://circleci.com/gh/{repo}">
+					<img
+						src="https://circleci.com/gh/{repo}.svg?style=svg"
+						alt="CircleCI build status for {repo}"
+						onError="this.parentElement.href = 'https://circleci.com/add-projects'; this.src = 'images/circle-ci-no-builds.svg'"
+					/>
+				</a>
+			</th>
 		</tr>
 	{/each}
 </table>
