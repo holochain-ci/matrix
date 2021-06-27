@@ -5,8 +5,11 @@ import { GITHUB_ACCESS_TOKEN } from '$lib/env'
 
 export async function get() {
   const octokit = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
-  const repoFullNames = ['holochain/holochain',
-    'holochain/holochain-dna-build-tutorial']
+  const repoFullNames = [
+    'holochain/holochain',
+    'holochain/holochain-dna-build-tutorial',
+    'wikinodes-net/wikinodes',
+  ]
 
   const repoPromises = repoFullNames.map((repoFullName) => {
     const [owner, repo] = repoFullName.split('/')
@@ -24,7 +27,7 @@ export async function get() {
   assertEqual(repos.length, workflowPromises.length)
 
   for (let i = 0; i < repos.length; i++) {
-    repos[i].workflows = workFlowPromisesFulfilled[i].data
+    repos[i].workflows = workFlowPromisesFulfilled[i].data.workflows
   }
 
   return { body: { repos } }

@@ -33,17 +33,21 @@
 	</tr>
 	{#each repos as repo}
 		<tr>
-			<th><a href="https://github.com/{repo}">{repo}</a></th>
-			<th>...</th>
-			<th>
-				<a href="https://circleci.com/gh/{repo}">
+			<td><a href="https://github.com/{repo.full_name}">{repo.full_name}</a></td>
+			<td>
+				{#each repo.workflows as workflow}
+					<img src={`${workflow.badge_url}?branch=${repo.default_branch}`} />
+				{/each}
+			</td>
+			<td>
+				<a href="https://circleci.com/gh/{repo.full_name}">
 					<img
-						src="https://circleci.com/gh/{repo}.svg?style=svg"
-						alt="CircleCI build status for {repo}"
+						src="https://circleci.com/gh/{repo.full_name}.svg?style=svg"
+						alt="CircleCI build status for {repo.full_name}"
 						onError="this.parentElement.href = 'https://circleci.com/add-projects'; this.src = 'images/circle-ci-no-builds.svg'"
 					/>
 				</a>
-			</th>
+			</td>
 		</tr>
 	{/each}
 </table>
