@@ -13,12 +13,12 @@ on:
       - run: yarn build
 
       - name: Deploy with gh-pages
-      run: |
-        set -x
-        git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-        yarn deploy -- --user "Deploy Bot <noreply@example.com>" --message "Update from Github Actions"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -x
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          yarn deploy --user "Deploy Bot <noreply@example.com>" --message "Update from Github Actions"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: 8398a7/action-slack@v3
         with:
