@@ -33,7 +33,7 @@ export async function get() {
 
   const reposResponse = await octokit.rest.repos.listForOrg({ org: 'holochain', sort: 'pushed', per_page: 100 })
   let repos = reposResponse.data
-  console.log(repos)
+  // console.log(repos)
   // .catch(console.error)
 
   const workflowPromises = repos.map((repo) => {
