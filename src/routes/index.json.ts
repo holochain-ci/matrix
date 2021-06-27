@@ -5,10 +5,22 @@ import { GITHUB_ACCESS_TOKEN } from '$lib/env'
 
 export async function get() {
   const octokit = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
+
   const repoFullNames = [
-    'holochain/holochain',
+    'holochain/admin-ui',
+    'holochain/bootstrap',
+    'holochain/devhub-dnas',
+    'holochain/docs-pages',
+    'holochain/elemental-chat-ui',
+    'holochain/elemental-chat',
+    'holochain/hc-utils',
+    'holochain/holochain-conductor-api',
     'holochain/holochain-dna-build-tutorial',
-    'wikinodes-net/wikinodes',
+    'holochain/holochain-wasmer',
+    'holochain/holochain',
+    'holochain/holonix',
+    'holochain/lair',
+    'holochain/tryorama',
   ]
 
   const repoPromises = repoFullNames.map((repoFullName) => {

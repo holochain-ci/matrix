@@ -36,7 +36,14 @@
 			<td><a href="https://github.com/{repo.full_name}">{repo.full_name}</a></td>
 			<td>
 				{#each repo.workflows as workflow}
-					<img src={`${workflow.badge_url}?branch=${repo.default_branch}`} />
+					<a
+						href="https://github.com/{repo.full_name}/actions/{workflow.path.replace(
+							/\.github\//,
+							''
+						)}"
+					>
+						<img src="{workflow.badge_url}?branch={repo.default_branch}" />
+					</a>
 				{/each}
 			</td>
 			<td>
