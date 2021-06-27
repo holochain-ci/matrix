@@ -1,6 +1,6 @@
 import { Octokit } from 'octokit'
 
-import { assertEqual } from '$lib/assert'
+import { assertEqual, assertExists } from '$lib/assert'
 import { GITHUB_ACCESS_TOKEN } from '$lib/env'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -42,6 +42,7 @@ export async function get(): Promise<{ body: { repos: Array<object> } }> {
   // .catch(console.error)
 
   const workflowPromises = repos.map((repo) => {
+    assertExists(repo.owner)
     return octokit.rest.actions.listRepoWorkflows({ owner: repo.owner.login, repo: repo.name })
   })
   const workFlowPromisesFulfilled = await Promise.all(workflowPromises)

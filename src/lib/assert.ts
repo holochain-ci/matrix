@@ -11,3 +11,11 @@ export function assertPositive(value: number): void {
     throw new Error(`Assertion Error: expected ${value} > 0`)
   }
 }
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+export function assertExists(value: any): void {
+  if (value == null) {
+    throw new Error(`Assertion Error: value was null or undefined`)
+  }
+}
