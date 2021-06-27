@@ -1,0 +1,29 @@
+name: deploy
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+
+      - name: Deploy with gh-pages
+      run: |
+        set -x
+        git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+        yarn deploy -- --user "Deploy Bot <noreply@example.com>" --message "Update from Github Actions"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,ref,workflow,job
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_CI }}
+        if: failure()
