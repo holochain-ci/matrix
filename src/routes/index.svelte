@@ -42,7 +42,10 @@
               ''
             )}"
           >
-            <img src="{workflow.badge_url}?branch={repo.default_branch}" />
+            <img
+              src="{workflow.badge_url}?branch={repo.default_branch}"
+              alt="Github Actions status for {repo.full_name}"
+            />
           </a>
         {/each}
       </td>

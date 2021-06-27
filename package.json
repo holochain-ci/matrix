@@ -9,8 +9,10 @@
     "preview": "svelte-kit preview",
     "check": "svelte-check --fail-on-warnings --tsconfig ./tsconfig.json",
     "check:watch": "yarn check --watch",
-    "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
-    "format": "prettier --write --plugin-search-dir=. .",
+    "format": "yarn _prettier --write && yarn _eslint --fix && yarn check",
+    "lint": "yarn _prettier --check && yarn _eslint && yarn check",
+    "_prettier": "prettier --plugin-search-dir=. .",
+    "_eslint": "eslint --max-warnings 0 --ignore-path .gitignore .",
     "deploy": "gh-pages --dist build"
   },
   "dependencies": {

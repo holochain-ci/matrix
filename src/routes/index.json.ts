@@ -3,7 +3,8 @@ import { Octokit } from 'octokit'
 import { assertEqual } from '$lib/assert'
 import { GITHUB_ACCESS_TOKEN } from '$lib/env'
 
-export async function get() {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export async function get(): Promise<{ body: { repos: Array<object> } }> {
   const octokit = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
 
   // const repoFullNames = [
@@ -36,7 +37,7 @@ export async function get() {
     sort: 'pushed',
     per_page: 100,
   })
-  let repos = reposResponse.data
+  const repos = reposResponse.data
   // console.log(repos)
   // .catch(console.error)
 
