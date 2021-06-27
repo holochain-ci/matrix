@@ -5,7 +5,7 @@
 		const res = await fetch('/index.json');
 
 		if (res.ok) {
-			console.log(res);
+			// console.log(res);
 			const json = await res.json();
 			const repos = await json.repos;
 			return {

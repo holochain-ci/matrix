@@ -1,17 +1,9 @@
-// import 'dotenv/config'
-
-// import dotenv from 'dotenv'
-// dotenv.config()
-
 import { Octokit } from "octokit";
 
-import { GITHUB_ACCESS_TOKEN } from '../env'
+import { assertEqual } from "$lib/Assert";
+import { GITHUB_ACCESS_TOKEN } from '$lib/env'
 
 export async function get() {
-
-  console.log({ auth: GITHUB_ACCESS_TOKEN })
-  console.log({ auth: GITHUB_ACCESS_TOKEN })
-  console.log({ auth: GITHUB_ACCESS_TOKEN })
   const octokit = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
   const repoFullNames = ['holochain/holochain',
     'holochain/holochain-dna-build-tutorial']
@@ -29,13 +21,11 @@ export async function get() {
   })
   const workFlowPromisesFulfilled = await Promise.all(workflowPromises)
 
+  assertEqual(repos.length, workflowPromises.length)
+
   for (let i = 0; i < repos.length; i++) {
     repos[i].workflows = workFlowPromisesFulfilled[i].data
   }
 
-  return {
-    body: {
-      repos
-    }
-  }
+  return { body: { repos } }
 }
