@@ -1,15 +1,15 @@
-import preprocess from 'svelte-preprocess';
+import preprocess from 'svelte-preprocess'
 
 // /** @type {import('@sveltejs/kit').Config} */
 
-import adapter from '@sveltejs/adapter-static';
+import adapter from '@sveltejs/adapter-static'
 
 export default {
-	// Consult https://github.com/sveltejs/svelte-preprocess
-	// for more information about preprocessors
-	preprocess: preprocess(),
-	kit: {
-		adapter: adapter(),
-		target: '#svelte'
-	}
-};
+  // Consult https://github.com/sveltejs/svelte-preprocess
+  // for more information about preprocessors
+  preprocess: preprocess(),
+  kit: {
+    adapter: adapter(),
+    target: '#svelte',
+  },
+}
