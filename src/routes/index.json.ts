@@ -5,6 +5,9 @@ import { GITHUB_ACCESS_TOKEN } from '$lib/env'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export async function get(): Promise<{ body: { repos: Array<object> } }> {
+  console.log('~~~~~~~~')
+  console.log(GITHUB_ACCESS_TOKEN.slice(0, 2) + '...' + GITHUB_ACCESS_TOKEN.slice(-2))
+  console.log('~~~~~~~~')
   const octokit = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
 
   // const repoFullNames = [
