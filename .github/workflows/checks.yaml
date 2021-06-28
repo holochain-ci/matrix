@@ -24,6 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - run: echo "PUBLIC_REPOS_GITHUB_ACCESS_TOKEN=${PUBLIC_REPOS_GITHUB_ACCESS_TOKEN}" > .env
       - run: yarn install --frozen-lockfile
       - run: yarn build
 
