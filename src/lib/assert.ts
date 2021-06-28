@@ -16,6 +16,8 @@ export function assertPositive(value: number): void {
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export function assertExists(value: any, message?: string): void {
   if (value == null) {
-    throw new Error(`Assertion Error: value was null or undefined` + message ? ` [ ${message} ]` : '')
+    throw new Error(
+      `Assertion Error: value was null or undefined` + message ? ` [ ${message} ]` : ''
+    )
   }
 }
