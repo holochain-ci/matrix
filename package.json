@@ -9,15 +9,17 @@
     "preview": "svelte-kit preview",
     "check": "svelte-check --fail-on-warnings --tsconfig ./tsconfig.json",
     "check:watch": "yarn check --watch",
-    "format": "yarn _prettier --write && yarn _eslint --fix && yarn check && yarn tsc --noEmit",
-    "lint": "yarn _prettier --check && yarn _eslint && yarn check && yarn tsc --noEmit",
+    "check-ts": "tsc --noEmit",
+    "lint": "yarn _prettier --write && yarn _eslint --fix && yarn check",
+    "lint:ci": "yarn _prettier --check && yarn _eslint && yarn check",
     "_prettier": "prettier --plugin-search-dir=. .",
     "_eslint": "eslint --max-warnings 0 --ignore-path .gitignore .",
     "deploy": "gh-pages --dist build",
     "sort": "sort-package-json"
   },
   "dependencies": {
-    "octokit": "^1.1.0"
+    "octokit": "^1.1.0",
+    "svelte-table": "^0.1.17"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^1.0.0-next.13",
@@ -27,6 +29,7 @@
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-svelte3": "^3.2.0",
+    "faker": "^5.5.3",
     "gh-pages": "^3.2.3",
     "prettier": "~2.2.1",
     "prettier-plugin-svelte": "^2.2.0",

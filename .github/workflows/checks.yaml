@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - run: yarn install --frozen-lockfile
-      - run: yarn lint
+      - run: yarn lint:ci
 
       - uses: 8398a7/action-slack@v3
         with:
