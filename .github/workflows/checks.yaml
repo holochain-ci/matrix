@@ -24,9 +24,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: echo "PUBLIC_REPOS_GITHUB_ACCESS_TOKEN=${PUBLIC_REPOS_GITHUB_ACCESS_TOKEN}" > .env
       - run: yarn install --frozen-lockfile
-      - run: yarn build
+
+      - env:
+          PUBLIC_REPOS_GITHUB_ACCESS_TOKEN: ${{ secrets.PUBLIC_REPOS_GITHUB_ACCESS_TOKEN }}
+        run: yarn build
 
       - uses: 8398a7/action-slack@v3
         with:
