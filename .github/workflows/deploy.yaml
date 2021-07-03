@@ -1,12 +1,12 @@
-name: deploy
+name: deploy2
 
 on:
   push:
   schedule:
-    - cron: '0/5 * * * *'
+    - cron: '3/5 * * * *'
 
 jobs:
-  deploy:
+  deploy3:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
