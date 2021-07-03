@@ -69,44 +69,33 @@
       sortable: false,
       headerClass: 'text-left',
     },
+    {
+      key: 'circleci',
+      title: 'Circle CI',
+      // value: (repo) => repo.xxxxx,
+      renderValue: (repo) => {
+        return `<a href="https://circleci.com/gh/${repo.full_name}">
+          <img
+            src="https://circleci.com/gh/${repo.full_name}.svg?style=svg"
+            alt="CircleCI build status for ${repo.full_name}"
+            onError="this.parentElement.href = 'https://circleci.com/add-projects'; this.src = 'images/circle-ci-no-builds.svg'"
+          />
+        </a>
+`
+      },
+      sortable: false,
+      headerClass: 'text-left',
+    },
   ]
 </script>
 
 <SvelteTable {columns} {rows} />
 
-<table>
-  <tr>
-    <th>Repo</th>
-    <th>Github Actions</th>
-    <th>Circle CI</th>
-  </tr>
-  {#each repos as repo}
-    <tr>
-      <td><a href="https://github.com/{repo.full_name}">{repo.full_name}</a></td>
-      <td>
-        {#each repo.workflows as workflow}
-          <a
-            href="https://github.com/{repo.full_name}/actions/{workflow.path.replace(
-              /\.github\//,
-              ''
-            )}"
-          >
-            <img
-              src="{workflow.badge_url}?branch={repo.default_branch}"
-              alt="Github Actions status for {repo.full_name}"
-            />
-          </a>
-        {/each}
-      </td>
-      <td>
-        <a href="https://circleci.com/gh/{repo.full_name}">
-          <img
-            src="https://circleci.com/gh/{repo.full_name}.svg?style=svg"
-            alt="CircleCI build status for {repo.full_name}"
-            onError="this.parentElement.href = 'https://circleci.com/add-projects'; this.src = 'images/circle-ci-no-builds.svg'"
-          />
-        </a>
-      </td>
-    </tr>
-  {/each}
-</table>
+<style>
+  div :global(.text-center) {
+    text-align: center;
+  }
+  div :global(.text-left) {
+    text-align: left;
+  }
+</style>
