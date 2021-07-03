@@ -11,6 +11,8 @@ export async function get(): Promise<{ body: { repos: Array<object> } }> {
   const octokit = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
 
   // const repoFullNames = [
+  //   'holochain/lair',
+
   //   'holochain/admin-ui',
   //   'holochain/bootstrap',
   //   'holochain/devhub-dnas',
@@ -23,7 +25,6 @@ export async function get(): Promise<{ body: { repos: Array<object> } }> {
   //   'holochain/holochain-wasmer',
   //   'holochain/holochain',
   //   'holochain/holonix',
-  //   'holochain/lair',
   //   'holochain/tryorama',
   // ]
 
