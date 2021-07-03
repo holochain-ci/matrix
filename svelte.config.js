@@ -14,7 +14,7 @@ export default {
     // make it work at github pages, where the root path of all pages and assets is /matrix/
     paths: {
       base: '/matrix',
-      assets: '/matrix'
+      assets: '/matrix',
     },
 
     target: '#svelte',
