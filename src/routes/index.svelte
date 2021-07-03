@@ -89,7 +89,7 @@
   ]
 </script>
 
-<SvelteTable {columns} {rows} />
+<SvelteTable {columns} {rows} iconAsc="↑" iconDesc="↓" />
 
 <style>
   div :global(.text-center) {
