@@ -2,8 +2,6 @@ name: Flat
 
 on:
   push:
-    paths:
-      - .github/workflows/flat.yml # Only run a new workflow every time this file (flat.yaml) file changes
   workflow_dispatch: # Required even though this is currently empty
   schedule:
     - cron: '*/5 * * * *' # Run this workflow every 5 minutes
@@ -21,7 +19,7 @@ jobs:
         with:
           deno-version: v1.x
       # The third step is a Flat Action step. We fetch the data in the http_url and save it as downloaded_filename
-      - name: Fetch data 
+      - name: Fetch data
         uses: githubocto/flat@v2
         with:
           http_url: https://api.coindesk.com/v2/bpi/currentprice.json # The data to fetch every 5 minutes
