@@ -14,7 +14,7 @@
     "lint:ci": "yarn _prettier --check && yarn _eslint && yarn check",
     "_prettier": "prettier --plugin-search-dir=. .",
     "_eslint": "eslint --max-warnings 0 --ignore-path .gitignore .",
-    "deploy": "touch build/.nojekyll && gh-pages --dist build",
+    "deploy": "touch build/.nojekyll && gh-pages --dotfiles --dist build",
     "sort": "sort-package-json"
   },
   "dependencies": {
