@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+
+		
+
+		<link rel="modulepreload" href="/./_app/start-097e0801.js">
+		<link rel="modulepreload" href="/./_app/chunks/vendor-41ca1ff5.js">
+		<link rel="modulepreload" href="/./_app/layout.svelte-b2906712.js">
+		<link rel="modulepreload" href="/./_app/pages/svelte-table-examples/Example2.svelte-e938bfa0.js">
+		<link rel="stylesheet" href="/./_app/assets/start-a8cd1609.css">
+		<link rel="stylesheet" href="/./_app/assets/vendor-5c4ecc1b.css">
+		<link rel="stylesheet" href="/./_app/assets/pages/svelte-table-examples/Example2.svelte-fd039dbb.css">
+
+		<script type="module">
+			import { start } from "/./_app/start-097e0801.js";
+			start({
+				target: document.querySelector("#svelte"),
+				paths: {"base":"","assets":"/."},
+				session: {},
+				host: location.host,
+				route: true,
+				spa: false,
+				trailing_slash: "never",
+				hydrate: {
+					status: 200,
+					error: null,
+					nodes: [
+						import("/./_app/layout.svelte-b2906712.js"),
+						import("/./_app/pages/svelte-table-examples/Example2.svelte-e938bfa0.js")
+					],
+					page: {
+						host: location.host, // TODO this is redundant
+						path: "/svelte-table-examples/Example2",
+						query: new URLSearchParams(""),
+						params: {}
+					}
+				}
+			});
+		</script>
+  </head>
+  <body>
+    <div id="svelte">
+
+
+<div class="svelte-1i1126n"><h1>SvelteTable example 2</h1>
+  <p>Custom header and row slots</p>
+  <button disabled>SORT BY ID
+  </button>
+
+  <button >SORT BY FIRST NAME
+  </button>
+
+  <button >SORT BY LAST NAME
+  </button>
+
+  <button disabled style="float:right;">SORT ↑</button>
+  <button  style="float:right;">SORT ↓</button>
+
+  <table class="table table-dark svelte-w7dofd"><thead class="thead-light svelte-w7dofd"><tr class="svelte-w7dofd"><th><select class="custom-select svelte-w7dofd"><option></option><option value="0">0 to 10</option><option value="1">10 to 20</option><option value="2">20 to 30</option><option value="3">30 to 40</option><option value="4">40 to 50</option></select>
+          </th><th><select class="custom-select svelte-w7dofd"><option></option><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="f">F</option><option value="g">G</option><option value="i">I</option><option value="j">J</option><option value="k">K</option><option value="l">L</option><option value="m">M</option><option value="n">N</option><option value="o">O</option><option value="r">R</option><option value="s">S</option><option value="t">T</option><option value="w">W</option><option value="z">Z</option></select>
+          </th><th><select class="custom-select svelte-w7dofd"><option></option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="f">F</option><option value="g">G</option><option value="h">H</option><option value="k">K</option><option value="l">L</option><option value="m">M</option><option value="n">N</option><option value="o">O</option><option value="p">P</option><option value="r">R</option><option value="s">S</option><option value="t">T</option><option value="v">V</option><option value="w">W</option></select>
+          </th><th>
+          </th><th><select class="custom-select svelte-w7dofd"><option></option><option value="Male">Male</option><option value="Female">Female</option></select>
+          </th><th>
+          </th></tr>
+    <tr slot="header"><th>↑ ID
+      </th>
+      <th>
+        FIRST NAME
+      </th>
+      <th>
+        LAST NAME
+      </th>
+      <th>EMAIL</th>
+      <th>GENDER</th>
+      <th>IP ADDRESS</th></tr></thead>
+  <tbody class=" svelte-w7dofd"><tr slot="row"><td>0</td>
+      <td>Damaris</td>
+      <td>Bednar</td>
+      <td>dbednar@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.107.52</td></tr><tr slot="row"><td>1</td>
+      <td>Frank</td>
+      <td>VonRueden</td>
+      <td>fvonrueden@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.63.22</td></tr><tr slot="row"><td>2</td>
+      <td>Leopold</td>
+      <td>Hyatt</td>
+      <td>lhyatt@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.45.132</td></tr><tr slot="row"><td>3</td>
+      <td>Jeanne</td>
+      <td>Gulgowski</td>
+      <td>jgulgowski@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.24.206</td></tr><tr slot="row"><td>4</td>
+      <td>Armand</td>
+      <td>O&#39;Conner</td>
+      <td>ao&#39;conner@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.105.112</td></tr><tr slot="row"><td>5</td>
+      <td>Deborah</td>
+      <td>Crona</td>
+      <td>dcrona@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.113.28</td></tr><tr slot="row"><td>6</td>
+      <td>Dorothea</td>
+      <td>Doyle</td>
+      <td>ddoyle@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.15.75</td></tr><tr slot="row"><td>7</td>
+      <td>Seth</td>
+      <td>Murphy</td>
+      <td>smurphy@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.74.125</td></tr><tr slot="row"><td>8</td>
+      <td>Lawrence</td>
+      <td>Reynolds</td>
+      <td>lreynolds@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.1.72</td></tr><tr slot="row"><td>9</td>
+      <td>Augustine</td>
+      <td>Funk</td>
+      <td>afunk@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.42.213</td></tr><tr slot="row"><td>10</td>
+      <td>Buford</td>
+      <td>Trantow</td>
+      <td>btrantow@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.123.246</td></tr><tr slot="row"><td>11</td>
+      <td>Kelley</td>
+      <td>Willms</td>
+      <td>kwillms@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.24.254</td></tr><tr slot="row"><td>12</td>
+      <td>Alberto</td>
+      <td>Kreiger</td>
+      <td>akreiger@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.88.179</td></tr><tr slot="row"><td>13</td>
+      <td>Rosalee</td>
+      <td>Satterfield</td>
+      <td>rsatterfield@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.2.144</td></tr><tr slot="row"><td>14</td>
+      <td>Kobe</td>
+      <td>Hills</td>
+      <td>khills@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.89.131</td></tr><tr slot="row"><td>15</td>
+      <td>Raymond</td>
+      <td>Nikolaus</td>
+      <td>rnikolaus@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.127.1</td></tr><tr slot="row"><td>16</td>
+      <td>Destini</td>
+      <td>Reichel</td>
+      <td>dreichel@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.86.222</td></tr><tr slot="row"><td>17</td>
+      <td>Cody</td>
+      <td>Walker</td>
+      <td>cwalker@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.0.147</td></tr><tr slot="row"><td>18</td>
+      <td>Janelle</td>
+      <td>McClure</td>
+      <td>jmcclure@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.8.102</td></tr><tr slot="row"><td>19</td>
+      <td>Charlie</td>
+      <td>Schulist</td>
+      <td>cschulist@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.70.155</td></tr><tr slot="row"><td>20</td>
+      <td>Olaf</td>
+      <td>Dietrich</td>
+      <td>odietrich@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.15.7</td></tr><tr slot="row"><td>21</td>
+      <td>Tracy</td>
+      <td>Bogan</td>
+      <td>tbogan@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.14.121</td></tr><tr slot="row"><td>22</td>
+      <td>Demetris</td>
+      <td>Berge</td>
+      <td>dberge@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.35.161</td></tr><tr slot="row"><td>23</td>
+      <td>Danial</td>
+      <td>Schumm</td>
+      <td>dschumm@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.73.96</td></tr><tr slot="row"><td>24</td>
+      <td>Lorine</td>
+      <td>Hoppe</td>
+      <td>lhoppe@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.38.237</td></tr><tr slot="row"><td>25</td>
+      <td>Cleora</td>
+      <td>Veum</td>
+      <td>cveum@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.106.237</td></tr><tr slot="row"><td>26</td>
+      <td>Aurelie</td>
+      <td>Paucek</td>
+      <td>apaucek@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.54.9</td></tr><tr slot="row"><td>27</td>
+      <td>Kennith</td>
+      <td>Lockman</td>
+      <td>klockman@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.102.40</td></tr><tr slot="row"><td>28</td>
+      <td>Amelia</td>
+      <td>Smith</td>
+      <td>asmith@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.109.93</td></tr><tr slot="row"><td>29</td>
+      <td>Luella</td>
+      <td>Frami</td>
+      <td>lframi@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.102.45</td></tr><tr slot="row"><td>30</td>
+      <td>Felix</td>
+      <td>Hamill</td>
+      <td>fhamill@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.123.126</td></tr><tr slot="row"><td>31</td>
+      <td>Daniella</td>
+      <td>McCullough</td>
+      <td>dmccullough@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.121.238</td></tr><tr slot="row"><td>32</td>
+      <td>Tyra</td>
+      <td>Bogan</td>
+      <td>tbogan@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.104.215</td></tr><tr slot="row"><td>33</td>
+      <td>Zane</td>
+      <td>Hegmann</td>
+      <td>zhegmann@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.13.123</td></tr><tr slot="row"><td>34</td>
+      <td>Geovany</td>
+      <td>Roberts</td>
+      <td>groberts@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.48.246</td></tr><tr slot="row"><td>35</td>
+      <td>Alfonso</td>
+      <td>Hilpert</td>
+      <td>ahilpert@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.1.82</td></tr><tr slot="row"><td>36</td>
+      <td>Ryleigh</td>
+      <td>Carroll</td>
+      <td>rcarroll@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.46.122</td></tr><tr slot="row"><td>37</td>
+      <td>Max</td>
+      <td>Stark</td>
+      <td>mstark@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.66.114</td></tr><tr slot="row"><td>38</td>
+      <td>Isabella</td>
+      <td>Witting</td>
+      <td>iwitting@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.65.5</td></tr><tr slot="row"><td>39</td>
+      <td>Jeanette</td>
+      <td>Marquardt</td>
+      <td>jmarquardt@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.53.63</td></tr><tr slot="row"><td>40</td>
+      <td>Winnifred</td>
+      <td>Roob</td>
+      <td>wroob@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.80.13</td></tr><tr slot="row"><td>41</td>
+      <td>Neil</td>
+      <td>Dicki</td>
+      <td>ndicki@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.58.151</td></tr><tr slot="row"><td>42</td>
+      <td>Maynard</td>
+      <td>Lakin</td>
+      <td>mlakin@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.28.92</td></tr><tr slot="row"><td>43</td>
+      <td>Kieran</td>
+      <td>Waelchi</td>
+      <td>kwaelchi@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.123.212</td></tr><tr slot="row"><td>44</td>
+      <td>Gwendolyn</td>
+      <td>Flatley</td>
+      <td>gflatley@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.110.84</td></tr><tr slot="row"><td>45</td>
+      <td>Brycen</td>
+      <td>Boehm</td>
+      <td>bboehm@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.67.238</td></tr><tr slot="row"><td>46</td>
+      <td>Magnus</td>
+      <td>Rau</td>
+      <td>mrau@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.16.247</td></tr><tr slot="row"><td>47</td>
+      <td>Bonnie</td>
+      <td>Russel</td>
+      <td>brussel@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.97.251</td></tr><tr slot="row"><td>48</td>
+      <td>Melyssa</td>
+      <td>Turner</td>
+      <td>mturner@zipit.org.ca</td>
+      <td>Female</td>
+      <td>192.168.33.196</td></tr><tr slot="row"><td>49</td>
+      <td>Lauryn</td>
+      <td>Wiza</td>
+      <td>lwiza@zipit.org.ca</td>
+      <td>Male</td>
+      <td>192.168.48.114</td></tr></tbody></table>
+</div>
+
+
+
+	
+</div>
+  </body>
+</html>
