@@ -43,7 +43,6 @@
         return `<a href="https://github.com/${repo.full_name}">${repo.full_name}</a>`
       },
       sortable: true,
-      headerClass: 'text-left',
     },
     {
       key: 'github_workflows',
@@ -67,7 +66,6 @@
           .join(' ')
       },
       sortable: false,
-      headerClass: 'text-left',
     },
     {
       key: 'circleci',
@@ -84,18 +82,8 @@
 `
       },
       sortable: false,
-      headerClass: 'text-left',
     },
   ]
 </script>
 
 <SvelteTable {columns} {rows} iconAsc="↑" iconDesc="↓" />
-
-<style>
-  div :global(.text-center) {
-    text-align: center;
-  }
-  div :global(.text-left) {
-    text-align: left;
-  }
-</style>
