@@ -3,7 +3,9 @@ name: deploy
 on:
   push:
   schedule:
-    - cron: '0/5 * * * *'
+    # start on the 4th minute after hour, as github mentions congestion at the top of the hour
+    # then run the job every 5 minutes after that
+    - cron: '4/5 * * * *'
 
 jobs:
   deploy:
