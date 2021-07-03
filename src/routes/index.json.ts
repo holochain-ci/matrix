@@ -1,7 +1,7 @@
 import { Octokit } from 'octokit'
 
 import { assertEqual, assertExists } from '$lib/assert'
-import { GITHUB_ACCESS_TOKEN } from '$lib/env'
+import { GITHUB_ACCESS_TOKEN, MAX_REPOS } from '$lib/env'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export async function get(): Promise<{ body: { repos: Array<object> } }> {
@@ -38,7 +38,7 @@ export async function get(): Promise<{ body: { repos: Array<object> } }> {
   const reposResponse = await octokit.rest.repos.listForOrg({
     org: 'holochain',
     sort: 'pushed',
-    per_page: 100,
+    per_page: MAX_REPOS || 100,
   })
   const repos = reposResponse.data
   // console.log(repos)

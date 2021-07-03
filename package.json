@@ -4,7 +4,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "svelte-kit dev",
+    "dev": "svelte-kit dev --port 7777",
     "build": "svelte-kit build",
     "preview": "svelte-kit preview",
     "check": "svelte-check --fail-on-warnings --tsconfig ./tsconfig.json",
