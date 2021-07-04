@@ -5,10 +5,7 @@ import { GITHUB_ACCESS_TOKEN, MAX_REPOS } from '$lib/env'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export async function get(): Promise<{ body: { repos: Array<object> } }> {
-  const GITHUB_ORGS = [
-    'holochain',
-    'holochain-open-dev',
-  ]
+  const GITHUB_ORGS = ['holochain', 'holochain-open-dev']
   const octokit = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
 
   const repoListPromises = GITHUB_ORGS.map((githubOrg) => {
@@ -19,17 +16,16 @@ export async function get(): Promise<{ body: { repos: Array<object> } }> {
     })
   })
 
-  let repoListResponses = await Promise.all(repoListPromises)
+  const repoListResponses = await Promise.all(repoListPromises)
   // .catch(console.error)
-  let repoLists = repoListResponses.map((response) => response.data)
-  let repos = repoLists.flat()  // Just flattens first level of nesting
+  const repoLists = repoListResponses.map((response) => response.data)
+  let repos = repoLists.flat() // Just flattens first level of nesting
 
   // console.log(repos)
 
   repos.sort((a, b) => {
     return a.pushed_at > b.pushed_at ? -1 : 1
   })
-
 
   const workflowPromises = repos.map((repo) => {
     assertExists(repo.owner)
