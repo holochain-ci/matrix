@@ -5,7 +5,6 @@
     const res = await fetch('/index.json')
 
     if (res.ok) {
-      // console.log(res);
       const json = await res.json()
       const repos = await json.repos
       return {
@@ -24,7 +23,6 @@
   import SvelteTable from 'svelte-table'
 
   export let repos
-  // console.log(repos)
 
   const rows = repos
 
@@ -41,7 +39,6 @@
     {
       key: 'github_workflows',
       title: 'Github Actions',
-      // value: (repo) => repo.xxxxx,
       renderValue: (repo) => {
         return repo.workflows
           .map((workflow) => {
@@ -64,13 +61,12 @@
     {
       key: 'circleci',
       title: 'Circle CI',
-      // value: (repo) => repo.xxxxx,
       renderValue: (repo) => {
         return `<a href="https://circleci.com/gh/${repo.full_name}">
           <img
             src="https://circleci.com/gh/${repo.full_name}.svg?style=svg"
             alt="CircleCI build status for ${repo.full_name}"
-            onError="this.parentElement.href = 'https://circleci.com/add-projects'; this.src = 'images/circle-ci-no-builds.svg'"
+            onError="this.parentElement.href = '#'; this.src = 'images/circle-ci-no-builds.svg'"
           />
         </a>
 `

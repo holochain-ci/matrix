@@ -7,18 +7,13 @@ import { GITHUB_ACCESS_TOKEN, MAX_REPOS } from '$lib/env'
 export async function get(): Promise<{ body: { repos: Array<object> } }> {
   const GITHUB_ORGS = [
     'compository',
-    'glassbeadsoftware',
     'h-be',
-    'hc-institute-japan',
     'holo-host',
     'holochain-ci',
     'holochain-gym',
     'holochain-in-action',
     'holochain-open-dev',
     'holochain',
-    'juntofoundation',
-    'perspect3vism',
-    'Sprillow',
   ]
 
   const octokit = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
@@ -35,8 +30,6 @@ export async function get(): Promise<{ body: { repos: Array<object> } }> {
   // .catch(console.error)
   const repoLists = repoListResponses.map((response) => response.data)
   let repos = repoLists.flat() // Just flattens first level of nesting
-
-  // console.log(repos)
 
   repos.sort((a, b) => {
     return a.pushed_at > b.pushed_at ? -1 : 1
