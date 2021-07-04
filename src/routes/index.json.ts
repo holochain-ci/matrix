@@ -43,16 +43,16 @@ export async function get(): Promise<{ body: { repos: Array<object> } }> {
     assertExists(repo.owner)
     return octokit.rest.actions.listRepoWorkflows({ owner: repo.owner.login, repo: repo.name })
   })
-  const workflowPromisesFulfilled = await Promise.all(workflowPromises)
+  const workflows = await Promise.all(workflowPromises)
   // .catch(console.error)
 
-  assertEqual(repos.length, workflowPromisesFulfilled.length)
+  assertEqual(repos.length, workflows.length)
 
   for (let i = 0; i < repos.length; i++) {
-    repos[i].workflows = workflowPromisesFulfilled[i].data.workflows
+    repos[i].workflows = workflows[i].data.workflows
   }
 
-  // trim down to the fields needed by front end
+  // trim down to the fields needed by interface
   repos = repos.map((repo) => {
     return {
       default_branch: repo.default_branch,

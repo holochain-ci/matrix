@@ -22,8 +22,7 @@
 <script lang="ts">
   import SvelteTable from 'svelte-table'
 
-  export let repos
-
+  export let repos // expose the repos that were fetched from index.json
   const rows = repos
 
   const columns = [
