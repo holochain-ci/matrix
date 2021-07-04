@@ -11,16 +11,16 @@ body {
 
 table {
   text-indent: initial;
-    border-spacing: 2px;
+  border-spacing: 2px;
 }
 
 a {
-  font-weight: 300;
   color: #007bff;
   text-decoration: none !important;
 }
 
 td, th {
+  font-weight: 300;
   font-size: 12px;
   letter-spacing: .1rem;
   display: table-cell;

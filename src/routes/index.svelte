@@ -26,13 +26,7 @@
   export let repos
   // console.log(repos)
 
-  const rows = repos.map((repo) => {
-    return {
-      default_branch: repo.default_branch,
-      full_name: repo.full_name,
-      workflows: repo.workflows,
-    }
-  })
+  const rows = repos
 
   const columns = [
     {
@@ -82,6 +76,15 @@
 `
       },
       sortable: false,
+    },
+    {
+      key: 'last_push',
+      title: 'Last Push',
+      value: (repo) => repo.pushed_at,
+      renderValue: (repo) => {
+        return repo.pushed_at
+      },
+      sortable: true,
     },
   ]
 </script>
