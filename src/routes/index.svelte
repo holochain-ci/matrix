@@ -81,7 +81,8 @@
       title: 'Last Push',
       value: (repo) => repo.pushed_at,
       renderValue: (repo) => {
-        return dayjs(repo.pushed_at).fromNow()
+        const howLongAgo = dayjs(repo.pushed_at).fromNow()
+        return `<div title="${repo.pushed_at}">${howLongAgo}</div>`
       },
       sortable: true,
     },
