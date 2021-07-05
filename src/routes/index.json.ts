@@ -65,13 +65,33 @@ export async function get(): Promise<{ body: { repos: Array<object> } }> {
     repos[i].workflows = workflows[i].data.workflows
   }
 
-  // trim down to the fields needed by interface
+  let repo = repos[0]
+  console.log({
+    owner: repo.owner.login,
+    repo: repo.name,
+    workflow_id: repo.workflows[0].id
+  })
+  let x = await octokit.rest.actions.listWorkflowRuns({
+    owner: repo.owner.login,
+    repo: repo.name,
+    workflow_id: repo.workflows[0].id
+  })
+  repos[0].workflowRuns = x.data
+  // let x = await octokit.request(`GET /repos/${repo.owner}/${repo.name}/actions/workflows/${repo.workflows[0].id}`, {
+  //   owner: repo.owner,
+  //   repo: repo.name,
+  //   workflow_id: repo.workflows[0].id
+  // })
+  console.log(x.data)
+
+  // trim down to fields needed by interface
   repos = repos.map((repo) => {
     return {
       default_branch: repo.default_branch,
       full_name: repo.full_name,
       pushed_at: repo.pushed_at,
       workflows: repo.workflows,
+      workflowRuns: repo.workflowRuns,
     }
   })
 
