@@ -23,7 +23,7 @@
   import SvelteTable from 'svelte-table'
 
   import dayjs from 'dayjs'
-  import relativeTime from 'dayjs/plugin/relativeTime'
+  import relativeTime from 'dayjs/plugin/relativeTime.js'
   dayjs.extend(relativeTime)
 
   export let repos // expose the repos that were fetched from index.json
