@@ -22,6 +22,10 @@
 <script lang="ts">
   import SvelteTable from 'svelte-table'
 
+  import dayjs from 'dayjs'
+  import relativeTime from 'dayjs/plugin/relativeTime'
+  dayjs.extend(relativeTime)
+
   export let repos // expose the repos that were fetched from index.json
   const rows = repos
 
@@ -77,7 +81,7 @@
       title: 'Last Push',
       value: (repo) => repo.pushed_at,
       renderValue: (repo) => {
-        return repo.pushed_at
+        return dayjs(repo.pushed_at).fromNow()
       },
       sortable: true,
     },
