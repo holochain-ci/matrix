@@ -16,6 +16,7 @@ export const MAX_DAYS_SINCE_LAST_PUSH =
     ? null
     : integer(process.env['MAX_DAYS_SINCE_LAST_PUSH'])
 
+// pedantically ensure that string contains only an integer
 function integer(value: string) {
   let isInt = true
   if (value === '') isInt = false
