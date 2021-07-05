@@ -69,7 +69,7 @@
           <img
             src="https://circleci.com/gh/${repo.full_name}.svg?style=svg"
             alt="CircleCI build status for ${repo.full_name}"
-            onError="this.parentElement.href = '#'; this.src = 'images/circle-ci-no-builds.svg'"
+            onError="this.parentElement.href = '#'; this.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII='"
           />
         </a>
 `
