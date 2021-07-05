@@ -26,6 +26,9 @@
   import relativeTime from 'dayjs/plugin/relativeTime.js'
   dayjs.extend(relativeTime)
 
+  const TRANSPARENT_1PX_PNG =
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII='
+
   export let repos // expose the repos that were fetched from index.json
   const rows = repos
 
@@ -69,7 +72,7 @@
           <img
             src="https://circleci.com/gh/${repo.full_name}.svg?style=svg"
             alt="CircleCI build status for ${repo.full_name}"
-            onError="this.parentElement.href = '#'; this.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII='"
+            onError="this.parentElement.href = '#'; this.src='${TRANSPARENT_1PX_PNG}'"
           />
         </a>
 `
