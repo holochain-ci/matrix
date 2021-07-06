@@ -22,13 +22,20 @@ jobs:
           MAX_REPOS: 1000
           GITHUB_ORGS_ALL_REPOS: >-
             compository
+            eyss
             h-be
+            hc-institute-japan
             holo-host
+            holochain
             holochain-ci
             holochain-gym
             holochain-in-action
             holochain-open-dev
-            holochain
+            juntofoundation
+          # possible additions include:
+          # glassbeadsoftware
+          # perspect3vism
+          # Sprillow
         run: yarn build
 
       - name: Deploy with gh-pages
