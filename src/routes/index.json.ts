@@ -52,17 +52,23 @@ export async function get(): Promise<{ body: { repos: Array<object> } }> {
     })
   }
 
-  const workflowPromises = repos.map((repo) => {
+  const workflowListPromises = repos.map((repo) => {
     assertExists(repo.owner)
     return octokit.rest.actions.listRepoWorkflows({ owner: repo.owner.login, repo: repo.name })
   })
-  const workflows = await Promise.all(workflowPromises)
+  const workflowListResponses = await Promise.all(workflowListPromises)
   // .catch(console.error)
 
-  assertEqual(repos.length, workflows.length)
+  const workflowResponse = workflowListResponses[0]
+  const workflow = workflowResponse.data.workflows[0]
+  const badgeResponse = await fetch(`${workflow.badge_url}`)
+  const badge = await badgeResponse.text()
+  console.log(badge)
+
+  assertEqual(repos.length, workflowListResponses.length)
 
   for (let i = 0; i < repos.length; i++) {
-    repos[i].workflows = workflows[i].data.workflows
+    repos[i].workflows = workflowListResponses[i].data.workflows
   }
 
   // trim down to the fields needed by interface
