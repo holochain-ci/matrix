@@ -2,11 +2,15 @@ import { Octokit } from 'octokit'
 import dayjs from 'dayjs'
 
 import { assertEqual, assertExists } from '$lib/assert'
-import { GITHUB_ACCESS_TOKEN, GITHUB_ORGS_ALL_REPOS, MAX_REPOS, MAX_DAYS_SINCE_LAST_PUSH } from '$lib/env'
+import {
+  GITHUB_ACCESS_TOKEN,
+  GITHUB_ORGS_ALL_REPOS,
+  MAX_DAYS_SINCE_LAST_PUSH,
+  MAX_REPOS,
+} from '$lib/env'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export async function get(): Promise<{ body: { repos: Array<object> } }> {
-
   const octokit = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
 
   const repoListPromises = GITHUB_ORGS_ALL_REPOS.map((githubOrg) => {

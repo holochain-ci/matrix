@@ -9,7 +9,9 @@ assertExists(
 )
 export const GITHUB_ACCESS_TOKEN = process.env['PUBLIC_REPOS_GITHUB_ACCESS_TOKEN']
 
-export const GITHUB_ORGS_ALL_REPOS = process.env['GITHUB_ORGS_ALL_REPOS'] ? process.env['GITHUB_ORGS_ALL_REPOS'].split(/\s+/) : []
+export const GITHUB_ORGS_ALL_REPOS = process.env['GITHUB_ORGS_ALL_REPOS']
+  ? process.env['GITHUB_ORGS_ALL_REPOS'].split(/\s+/)
+  : []
 
 export const MAX_REPOS = process.env['MAX_REPOS'] == null ? null : integer(process.env['MAX_REPOS'])
 
