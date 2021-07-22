@@ -17,7 +17,7 @@ export function assertPositive(value: number): void {
 export function assertExists(value: any, message?: string): void {
   if (value == null) {
     throw new Error(
-      `Assertion Error: value was null or undefined` + (message ? ` [ ${message} ]` : '')
+      'Assertion Error: value was null or undefined' + (message ? ` [ ${message} ]` : '')
     )
   }
 }

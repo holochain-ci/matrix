@@ -74,8 +74,7 @@
             alt="CircleCI build status for ${repo.full_name}"
             onError="this.parentElement.href = '#'; this.src='${TRANSPARENT_1PX_PNG}'"
           />
-        </a>
-`
+        </a>`
       },
       sortable: false,
     },

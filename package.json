@@ -5,14 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "svelte-kit dev --port 7777",
-    "build": "svelte-kit build",
+    "build": "rm -rf ./build/ && svelte-kit build",
     "preview": "http-server -p 8888 build",
     "check": "svelte-check --fail-on-warnings --tsconfig ./tsconfig.json",
     "check:watch": "yarn check --watch",
     "check-ts": "tsc --noEmit",
     "lint": "yarn _prettier --write && yarn _eslint --fix && yarn check",
     "lint:ci": "yarn _prettier --check && yarn _eslint && yarn check",
-    "_prettier": "prettier --plugin-search-dir=. .",
+    "_prettier": "prettier --ignore-path .gitignore --plugin-search-dir=. .",
     "_eslint": "eslint --max-warnings 0 --ignore-path .gitignore .",
     "deploy": "touch build/.nojekyll && gh-pages --dotfiles --dist build",
     "sort": "sort-package-json"
