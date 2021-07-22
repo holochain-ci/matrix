@@ -2,7 +2,7 @@
   import type { Load } from '@sveltejs/kit'
 
   export const load: Load = async ({ fetch }) => {
-    const res = await fetch('/index.json')
+    const res = await fetch('/repos.json')
 
     if (res.ok) {
       const json = await res.json()
@@ -29,7 +29,7 @@
   const TRANSPARENT_1PX_PNG =
     'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII='
 
-  export let repos // expose the repos that were fetched from index.json
+  export let repos // expose the repos that were fetched from repos.json
   const rows = repos
 
   const columns = [
