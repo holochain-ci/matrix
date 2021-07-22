@@ -29,7 +29,7 @@ jobs:
       - env:
           GITHUB_ORGS_ALL_REPOS: holochain
           MAX_DAYS_SINCE_LAST_PUSH: 180
-          MAX_REPOS: 1
+          MAX_REPOS: 2
           PUBLIC_REPOS_GITHUB_ACCESS_TOKEN: ${{ secrets.PUBLIC_REPOS_GITHUB_ACCESS_TOKEN }}
           UPDATE_EXISTING_REPOS: false
         run: yarn build
