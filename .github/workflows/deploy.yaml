@@ -19,9 +19,6 @@ jobs:
       - run: yarn install --frozen-lockfile
 
       - env:
-          PUBLIC_REPOS_GITHUB_ACCESS_TOKEN: ${{ secrets.PUBLIC_REPOS_GITHUB_ACCESS_TOKEN }}
-          MAX_DAYS_SINCE_LAST_PUSH: 180
-          MAX_REPOS: 1000
           GITHUB_ORGS_ALL_REPOS: >-
             compository
             eyss
@@ -38,6 +35,10 @@ jobs:
           # glassbeadsoftware
           # perspect3vism
           # Sprillow
+          MAX_DAYS_SINCE_LAST_PUSH: 180
+          MAX_REPOS: 1000
+          PUBLIC_REPOS_GITHUB_ACCESS_TOKEN: ${{ secrets.PUBLIC_REPOS_GITHUB_ACCESS_TOKEN }}
+          UPDATE_EXISTING_REPOS: true
         run: yarn build
 
       - name: Deploy with gh-pages
