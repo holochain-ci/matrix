@@ -21,3 +21,10 @@ export function assertExists(value: any, message?: string): void {
     )
   }
 }
+
+export function assertPresent(value: string, message?: string): void {
+  assertExists(value, message)
+  if (value === '') {
+    throw new Error('Assertion Error: value was empty string' + (message ? ` [ ${message} ]` : ''))
+  }
+}
