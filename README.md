@@ -4,11 +4,15 @@
 
 Aggregates Continuous Integration information from multiple repos across multiple orgs. Provides a single unified view of health of related projects.
 
+## Project management
+
+See: https://github.com/orgs/holochain-ci/projects/1
+
 ## Development
 
 Built with Sveltekit.
 
-### To start a local server
+### Start a local server
 
 ```
 cp .env.example .env
@@ -24,3 +28,12 @@ yarn dev
 ```
 
 Your local instance should be running on http://localhost:7777
+
+### Create a production build locally
+
+```
+yarn build
+yarn preview
+```
+
+Your local instance should be running on http://localhost:8888
