@@ -4,7 +4,7 @@
 
 Aggregates Continuous Integration information from multiple repos across multiple orgs. Provides a single unified view of health of related projects.
 
-## Live version 
+## Live version
 
 Several times per hour the matrix is rebuilt in Github actions and deployed to GitHub pages:
 
