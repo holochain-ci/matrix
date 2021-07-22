@@ -2,6 +2,8 @@ name: deploy
 
 on:
   push:
+    branches:
+      - main
   schedule:
     # 4/5 means: start on the 4th minute after hour,
     # as github mentions congestion at the top of the hour
