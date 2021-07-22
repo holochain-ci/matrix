@@ -4,6 +4,12 @@
 
 Aggregates Continuous Integration information from multiple repos across multiple orgs. Provides a single unified view of health of related projects.
 
+## Live version 
+
+Several times per hour the matrix is rebuilt in Github actions and deployed to GitHub pages:
+
+https://holochain-ci.github.io/matrix/
+
 ## Project management
 
 See: https://github.com/orgs/holochain-ci/projects/1
