@@ -1,1 +1,0 @@
-{"repos":[{"default_branch":"develop","full_name":"holochain/holochain","pushed_at":"2021-07-21T22:04:53Z","workflows":[{"badge_url":"https://github.com/holochain/holochain/workflows/Is%20Ready%20To%20Merge/badge.svg","path":".github/workflows/test.yml"}]},{"default_branch":"master","full_name":"juntofoundation/junto-elements","pushed_at":"2021-07-21T21:08:03Z","workflows":[]}]}
