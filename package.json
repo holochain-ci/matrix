@@ -22,6 +22,7 @@
     "dayjs": "^1.10.6",
     "lodash": "^4.17.21",
     "octokit": "^1.1.0",
+    "shelljs": "^0.8.4",
     "svelte-table": "^0.1.17"
   },
   "devDependencies": {

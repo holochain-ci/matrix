@@ -88,6 +88,22 @@
       },
       sortable: true,
     },
+    {
+      key: 'hc_version',
+      title: 'Holochain Version',
+      value: (repo) => repo.nix_holochain_version_date || '',
+      renderValue: (repo) => {
+        if (!repo.nix_holochain_version) return ''
+        const howLongAgo = dayjs(repo.nix_holochain_version_date).fromNow()
+        const commitUrl = `https://github.com/holochain/holochain/commit/${repo.nix_holochain_version}`
+        const shortHash = repo.nix_holochain_version.slice(0, 7)
+        return (
+          `<span title="${repo.pushed_at}">${howLongAgo}</span> ` +
+          `<a href="${commitUrl}">(${shortHash})</a>`
+        )
+      },
+      sortable: true,
+    },
   ]
 </script>
 

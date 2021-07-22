@@ -1,7 +1,7 @@
 /.env
-.DS_Store
 /.svelte-kit/
+/build/
 /node_modules/
 /package/
+/repos/
 /tmp/
-/build/
