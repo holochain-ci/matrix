@@ -24,7 +24,7 @@ jobs:
       - name: Cache Repos
         uses: actions/cache@v2
         with:
-          path: 'repos/*/.git'
+          path: 'repos/*/*/.git'
           key: ${{ runner.os }}-repos-${{ hashFiles('.github/workflows/deploy.yaml') }}
           restore-keys: |
             ${{ runner.os }}-repos-
