@@ -25,9 +25,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: repos
-          key: ${{ runner.os }}-git-${{ hashFiles('*/.git/FETCH_HEAD') }}
+          key: ${{ runner.os }}-repos-${{ hashFiles('.github/workflows/deploy.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-git-
+            ${{ runner.os }}-repos-
 
       - run: yarn install --frozen-lockfile
 
