@@ -108,7 +108,7 @@ function cloneOrUpdateLocalCopyByName(
   if (existsSync(`${repoDir}/.git/`)) {
     if (UPDATE_EXISTING_REPOS === true || options.updateExistingRepo === true) {
       run(`cd ${repoDir} && git fetch`)
-      run(`cd ${repoDir} && git reset FETCH_HEAD --hard`)
+      run(`cd ${repoDir} && ( git reset FETCH_HEAD --hard || git reset --hard )`)
       run(`cd ${repoDir} && git clean -fd`)
     }
   } else {
