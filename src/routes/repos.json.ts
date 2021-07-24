@@ -112,7 +112,7 @@ function cloneOrUpdateLocalCopyByName(
       run(`cd ${repoDir} && git clean -fd`)
     }
   } else {
-    run(`git clone https://github.com/${repoFullName}.git ${repoDir}`)
+    run(`git clone --quiet https://github.com/${repoFullName}.git ${repoDir}`)
   }
 }
 
