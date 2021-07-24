@@ -16,7 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: yarn install --frozen-lockfile
+      # - name: Cancel other deploys which are running
+      #   uses: styfle/cancel-workflow-action@0.9.0
+      #   with:
+      #     access_token: ${{ github.token }}
+
+       - run: yarn install --frozen-lockfile
 
       - env:
           GITHUB_ORGS_ALL_REPOS: >-
