@@ -97,9 +97,10 @@
         const howLongAgo = dayjs(repo.nix_holochain_version_date).fromNow()
         const commitUrl = `https://github.com/holochain/holochain/commit/${repo.nix_holochain_version}`
         const shortHash = repo.nix_holochain_version.slice(0, 7)
+        const hashHue = parseInt(shortHash.slice(0, 2), 16)
         return (
           `<span title="${repo.pushed_at}">${howLongAgo}</span> ` +
-          `<a href="${commitUrl}">(${shortHash})</a>`
+          `<a href="${commitUrl}" style="background-color: hsl(${hashHue}, 100%, 50%, 0.25)">(${shortHash})</a>`
         )
       },
       sortable: true,
