@@ -21,6 +21,14 @@ jobs:
       #   with:
       #     access_token: ${{ github.token }}
 
+      - name: Cache Repos
+        uses: actions/cache@v2
+        with:
+          path: repos
+          key: ${{ runner.os }}-git-${{ hashFiles('*/.git/FETCH_HEAD') }}
+          restore-keys: |
+            ${{ runner.os }}-git-
+
       - run: yarn install --frozen-lockfile
 
       - env:
