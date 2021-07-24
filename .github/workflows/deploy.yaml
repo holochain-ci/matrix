@@ -21,7 +21,7 @@ jobs:
       #   with:
       #     access_token: ${{ github.token }}
 
-       - run: yarn install --frozen-lockfile
+      - run: yarn install --frozen-lockfile
 
       - env:
           GITHUB_ORGS_ALL_REPOS: >-
