@@ -6,9 +6,9 @@
 
     if (res.ok) {
       const json = await res.json()
-      const repos = await json.repos
+      const { repos, totalVersions } = await json
       return {
-        props: { repos },
+        props: { repos, totalVersions },
       }
     }
 
@@ -29,7 +29,9 @@
   const TRANSPARENT_1PX_PNG =
     'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII='
 
-  export let repos // expose the repos that were fetched from repos.json
+  // expose the values that were fetched from repos.json
+  export let repos
+  export let totalVersions: number
   const rows = repos
 
   const columns = [
@@ -97,10 +99,10 @@
         const howLongAgo = dayjs(repo.nix_holochain_version_date).fromNow()
         const commitUrl = `https://github.com/holochain/holochain/commit/${repo.nix_holochain_version}`
         const shortHash = repo.nix_holochain_version.slice(0, 7)
-        const hashHue = parseInt(shortHash.slice(0, 2), 16)
+        const hue = Math.round((256 * repo.nix_holochain_version_date_index) / totalVersions)
         return (
           `<span title="${repo.pushed_at}">${howLongAgo}</span> ` +
-          `<a href="${commitUrl}" style="background-color: hsl(${hashHue}, 100%, 50%, 0.25)">(${shortHash})</a>`
+          `<a href="${commitUrl}" style="background-color: hsl(${hue}, 100%, 50%, 0.25)">(${shortHash})</a>`
         )
       },
       sortable: true,

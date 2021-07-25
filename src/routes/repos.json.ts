@@ -18,15 +18,20 @@ const HOLOCHAIN_REPO_NAME = `holochain/holochain`
 const OCTOKIT = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export async function get(): Promise<{ body: { repos: Array<RepoForUi> } }> {
+export async function get(): Promise<{ body: { repos: Array<RepoForUi>; totalVersions: number } }> {
   let repos
   repos = await fetchRepos()
   repos = sortRepos(repos)
   repos = filterRepos(repos)
   repos = await addWorkflows(repos)
   repos = await addHolochainVersionDataToRepos(repos)
+
+  const versionData = indexHolochainVersions(repos)
+  ;({ repos } = versionData)
+  const { totalVersions } = versionData
   repos = fieldsForUi(repos)
-  return { body: { repos } }
+
+  return { body: { repos, totalVersions } }
 }
 
 async function fetchRepos() {
@@ -141,6 +146,25 @@ function getholochainVersionDate(holochainVersion) {
   ).trim()
 }
 
+function indexHolochainVersions(repos) {
+  const dates: Array<string> = []
+  repos.forEach((repo) => {
+    const date = repo.nix_holochain_version_date
+    if (date && !dates.includes(date)) {
+      dates.push(date)
+    }
+  })
+  dates.sort()
+  repos = repos.map((repo) => {
+    const date = repo.nix_holochain_version_date
+    if (date) {
+      repo.nix_holochain_version_date_index = dates.indexOf(date)
+    }
+    return repo
+  })
+  return { repos, totalVersions: dates.length }
+}
+
 type RepoForUi = {
   default_branch: string
   full_name: string
@@ -164,6 +188,7 @@ function fieldsForUi(repos): Array<RepoForUi> {
       full_name: repo.full_name,
       nix_holochain_version: repo.nix_holochain_version,
       nix_holochain_version_date: repo.nix_holochain_version_date,
+      nix_holochain_version_date_index: repo.nix_holochain_version_date_index,
       pushed_at: repo.pushed_at,
       workflows: workflowData,
     }
