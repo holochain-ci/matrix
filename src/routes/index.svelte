@@ -6,7 +6,7 @@
 
     if (res.ok) {
       const json = await res.json()
-      const {repos} = await json
+      const { repos } = await json
       return {
         props: { repos },
       }
