@@ -158,7 +158,7 @@ function indexHolochainVersions(repos) {
   repos = repos.map((repo) => {
     const date = repo.nix_holochain_version_date
     if (date) {
-      repo.nix_holochain_version_date_index = dates.indexOf(date)
+      repo.nix_holochain_version_date_index = dates.length - (dates.indexOf(date) + 1)
     }
     return repo
   })

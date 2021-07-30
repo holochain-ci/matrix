@@ -32,7 +32,9 @@
   // expose the values that were fetched from repos.json
   export let repos
   export let totalVersions: number
+
   const rows = repos
+  const HUES = [0, 190, 270]
 
   const columns = [
     {
@@ -96,13 +98,13 @@
       value: (repo) => repo.nix_holochain_version_date || '',
       renderValue: (repo) => {
         if (!repo.nix_holochain_version) return ''
-        const howLongAgo = dayjs(repo.nix_holochain_version_date).fromNow()
+        const howLongAgo = repo.nix_holochain_version_date.split('T')[0]
         const commitUrl = `https://github.com/holochain/holochain/commit/${repo.nix_holochain_version}`
         const shortHash = repo.nix_holochain_version.slice(0, 7)
-        const hue = Math.round((256 * repo.nix_holochain_version_date_index) / totalVersions)
+        const hue = HUES[repo.nix_holochain_version_date_index % HUES.length]
         return (
           `<span title="${repo.pushed_at}">${howLongAgo}</span> ` +
-          `<a href="${commitUrl}" style="background-color: hsl(${hue}, 100%, 50%, 0.25)">(${shortHash})</a>`
+          `[<a href="${commitUrl}" style="background-color: hsl(${hue}, 100%, 50%, 0.15)">${shortHash}</a>]`
         )
       },
       sortable: true,
