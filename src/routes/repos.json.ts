@@ -18,20 +18,17 @@ const HOLOCHAIN_REPO_NAME = `holochain/holochain`
 const OCTOKIT = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export async function get(): Promise<{ body: { repos: Array<RepoForUi>; totalVersions: number } }> {
+export async function get(): Promise<{ body: { repos: Array<RepoForUi> } }> {
   let repos
   repos = await fetchRepos()
   repos = sortRepos(repos)
   repos = filterRepos(repos)
   repos = await addWorkflows(repos)
   repos = await addHolochainVersionDataToRepos(repos)
-
-  const versionData = indexHolochainVersions(repos)
-  ;({ repos } = versionData)
-  const { totalVersions } = versionData
+  repos = indexHolochainVersions(repos)
   repos = fieldsForUi(repos)
 
-  return { body: { repos, totalVersions } }
+  return { body: { repos } }
 }
 
 async function fetchRepos() {
@@ -162,7 +159,7 @@ function indexHolochainVersions(repos) {
     }
     return repo
   })
-  return { repos, totalVersions: dates.length }
+  return repos
 }
 
 type RepoForUi = {

@@ -6,9 +6,9 @@
 
     if (res.ok) {
       const json = await res.json()
-      const { repos, totalVersions } = await json
+      const {repos} = await json
       return {
-        props: { repos, totalVersions },
+        props: { repos },
       }
     }
 
@@ -31,7 +31,6 @@
 
   // expose the values that were fetched from repos.json
   export let repos
-  export let totalVersions: number
 
   const rows = repos
   const HUES = [0, 190, 270]
