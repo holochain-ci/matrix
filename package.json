@@ -4,7 +4,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "svelte-kit dev --port 7777",
+    "dev": "nodemon  --watch .env --exec 'yarn dev:svelte'",
+    "dev:svelte": "svelte-kit dev --port 7777",
     "build": "rm -rf ./build/ && svelte-kit build",
     "preview": "http-server -p 8888 build",
     "check": "svelte-check --fail-on-warnings --tsconfig ./tsconfig.json",
@@ -39,6 +40,7 @@
     "faker": "^5.5.3",
     "gh-pages": "^3.2.3",
     "http-server": "^0.12.3",
+    "nodemon": "^2.0.12",
     "prettier": "~2.3.2",
     "prettier-plugin-svelte": "^2.3.1",
     "sort-package-json": "^1.50.0",
