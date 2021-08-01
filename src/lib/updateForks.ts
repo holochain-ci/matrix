@@ -5,7 +5,6 @@
 //   addHolochainVersionDataToRepos,
 // } from '../src/lib/repos'
 
-// export {}
 import { FOO } from './testing'
 console.log(FOO)
 console.log(FOO)
