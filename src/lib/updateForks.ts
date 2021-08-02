@@ -3,6 +3,7 @@ import { run } from '$lib/run'
 const HOLOMATRIX_ORG = `holomatrix7`
 const REPOS_DIR = `${process.cwd()}/repos`
 const HOLOCHAIN_REPO_NAME = `holochain/holochain`
+const HOLOCHAIN_DIR = `${REPOS_DIR}/${HOLOCHAIN_REPO_NAME}`
 
 export function updateRepoForks(repos: any) {
   let forkableRepos = filterReposOnlyWithHolochainVersion(repos)
@@ -24,15 +25,19 @@ function filterReposOnlyWithHolochainVersion(repos: []) {
   })
 }
 
-function createOrUpdateForks(forkableRepos) {
+function createOrUpdateForks(forkableRepos: []) {
   forkableRepos.forEach((repo) => {
     const repoDir = `${REPOS_DIR}/${repo.full_name}`
-    const branches = run(`cd ${repoDir} && git branch --remotes |grep '^\\s*${HOLOMATRIX_ORG}/'`, {
-      relaxed: true,
-    })
-      .trim()
-      .split('\n')
-    console.log(branches)
+    const holochainCandidateRefs = holochainRefsAfter(repo.nix_holochain_version_date, repoDir)
+    const branchesString = run(
+      `cd ${repoDir} && git branch --remotes |grep '^\\s*${HOLOMATRIX_ORG}/'`,
+      { relaxed: true }
+    ).trim()
+    if (branchesString) {
+      branches = branchesString.split('\n')
+      console.log(branches)
+    } else {
+    }
     // get all branches on remote `holomatrix7`
     // look for branch holomatrix7/holochain-core-[holochain commit hash]
     // if branch exists
@@ -41,4 +46,15 @@ function createOrUpdateForks(forkableRepos) {
     // else
     //    create branch with updated default.nix
   })
+}
+
+function holochainRefsAfter(holochainVersionDate, repoDir) {
+  const refs = run(
+    `cd ${HOLOCHAIN_DIR} && git log --pretty="format:%H" --after="${holochainVersionDate}"`
+  ).trim()
+  if (refs) {
+    return refs.split('\n')
+  } else {
+    return []
+  }
 }
