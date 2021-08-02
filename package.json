@@ -4,11 +4,10 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "nodemon  --watch .env --exec 'yarn dev:svelte'",
+    "dev": "nodemon --watch .env --watch package.json --watch yarn.lock --exec 'yarn dev:svelte'",
     "dev:svelte": "svelte-kit dev --port 7777",
     "build": "rm -rf ./build/ && svelte-kit build",
     "preview": "http-server -p 8888 build",
-    "update-forks": "NODE_OPTIONS='--loader ts-node/esm' node ./bin/updateForks.ts",
     "check": "svelte-check --fail-on-warnings --tsconfig ./tsconfig.json",
     "check:watch": "yarn check --watch",
     "check-ts": "tsc --noEmit",
@@ -20,19 +19,18 @@
     "sort": "sort-package-json"
   },
   "dependencies": {
+    "@types/node": "^16.4.10",
     "chalk": "^4.1.1",
     "dayjs": "^1.10.6",
     "lodash": "^4.17.21",
     "octokit": "^1.1.0",
     "shelljs": "^0.8.4",
-    "svelte-table": "^0.1.17",
-    "ts-node": "9.1.1"
+    "svelte-table": "^0.1.17"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^1.0.0-next.13",
     "@sveltejs/kit": "v1.0.0-next.118",
     "@types/bluebird": "^3.5.36",
-    "@types/node": "^15.0.1",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
     "bluebird": "^3.7.2",

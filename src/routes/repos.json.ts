@@ -1,11 +1,13 @@
 import {
-  fetchRepos,
-  sortRepos,
-  filterRepos,
-  addWorkflows,
   addHolochainVersionDataToRepos,
+  addWorkflows,
+  fetchRepos,
+  filterRepos,
   indexHolochainVersions,
+  sortRepos,
 } from '$lib/repos'
+
+import { updateRepoForks } from '$lib/updateForks'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export async function get(): Promise<{ body: { repos: Array<RepoForUi> } }> {
@@ -16,6 +18,7 @@ export async function get(): Promise<{ body: { repos: Array<RepoForUi> } }> {
   repos = await addWorkflows(repos)
   repos = await addHolochainVersionDataToRepos(repos)
   repos = indexHolochainVersions(repos)
+  repos = updateRepoForks(repos)
   repos = fieldsForUi(repos)
 
   return { body: { repos } }
