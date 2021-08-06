@@ -7,7 +7,8 @@ assertExists(
   process.env['PUBLIC_REPOS_GITHUB_ACCESS_TOKEN'],
   "process.env['PUBLIC_REPOS_GITHUB_ACCESS_TOKEN']"
 )
-export const GITHUB_ACCESS_TOKEN = process.env['PUBLIC_REPOS_GITHUB_ACCESS_TOKEN']
+export const PUBLIC_REPOS_GITHUB_ACCESS_TOKEN = process.env['PUBLIC_REPOS_GITHUB_ACCESS_TOKEN']
+export const ADMIN_ORG_GITHUB_ACCESS_TOKEN = process.env['ADMIN_ORG_GITHUB_ACCESS_TOKEN']
 
 export const GITHUB_ORGS_ALL_REPOS = process.env['GITHUB_ORGS_ALL_REPOS']?.trim()
   ? process.env['GITHUB_ORGS_ALL_REPOS'].trim().split(/\s+/)

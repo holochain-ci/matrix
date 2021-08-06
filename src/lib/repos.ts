@@ -7,7 +7,7 @@ import { run } from '$lib/run'
 import { assertEqual, assertExists, assertPresent } from '$lib/assert'
 
 import {
-  GITHUB_ACCESS_TOKEN,
+  PUBLIC_REPOS_GITHUB_ACCESS_TOKEN,
   GITHUB_ORGS_ALL_REPOS,
   MAX_DAYS_SINCE_LAST_PUSH,
   MAX_REPOS,
@@ -16,7 +16,7 @@ import {
 
 const REPOS_DIR = `${process.cwd()}/repos`
 const HOLOCHAIN_REPO_NAME = `holochain/holochain`
-const GITHUB = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
+const GITHUB = new Octokit({ auth: PUBLIC_REPOS_GITHUB_ACCESS_TOKEN })
 
 export async function fetchRepos() {
   const repoListPromises = GITHUB_ORGS_ALL_REPOS.map((githubOrg) => {

@@ -3,13 +3,13 @@ import Promise from 'bluebird'
 
 import { run } from '$lib/run'
 
-import { GITHUB_ACCESS_TOKEN } from '$lib/env'
+import { ADMIN_ORG_GITHUB_ACCESS_TOKEN } from '$lib/env'
 
 const HOLOMATRIX_ORG = `holomatrix7`
 const REPOS_DIR = `${process.cwd()}/repos`
 const HOLOCHAIN_REPO_NAME = `holochain/holochain`
 const HOLOCHAIN_DIR = `${REPOS_DIR}/${HOLOCHAIN_REPO_NAME}`
-const GITHUB = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
+const GITHUB = new Octokit({ auth: ADMIN_ORG_GITHUB_ACCESS_TOKEN })
 
 export async function updateRepoForks(repos: any) {
   const forkableRepos = filterReposOnlyWithHolochainVersion(repos)
@@ -32,7 +32,7 @@ function filterReposOnlyWithHolochainVersion(repos: []) {
 }
 
 async function createOrUpdateForks(forkableRepos: []) {
-  return await Promise.map(forkableRepos, createOrUpdateFork, { concurrency: 5 })
+  return await Promise.map(forkableRepos, createOrUpdateFork, { concurrency: 1 })
 }
 
 async function createOrUpdateFork(repo) {
@@ -70,16 +70,25 @@ async function createOrUpdateFork(repo) {
     repo: repo.name,
     organization: HOLOMATRIX_ORG,
   })
+
   const fork = forkResult.data
-  // console.log(fork)
-  const forkName = `${repo.owner.login}---${repo.name}`
-  if (fork.name !== forkName) {
+  console.log('fork created or touched')
+  const newForkName = `${repo.owner.login}---${repo.name}`
+  if (fork.name !== newForkName) {
     await GITHUB.rest.repos.update({
       owner: HOLOMATRIX_ORG,
       repo: fork.name,
-      name: forkName,
+      name: newForkName,
     })
+    console.log('fork name updated')
   }
+  const result = await GITHUB.rest.actions.enableSelectedRepositoryGithubActionsOrganization({
+    org: HOLOMATRIX_ORG,
+    repository_id: fork.id,
+  })
+  console.log(result)
+  console.log('fork actions enabled')
+
   return repo
 }
 
