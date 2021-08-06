@@ -11,6 +11,7 @@ const { exec, exit } = shelljs
 
 type Options = {
   color?: boolean
+  cwd?: string
   relaxed?: boolean
   quiet?: boolean
   quietCommand?: boolean
@@ -49,5 +50,5 @@ export function run(command: string, options: Options = {}): string {
     exit(exitCode)
   }
 
-  return result
+  return result.trim()
 }

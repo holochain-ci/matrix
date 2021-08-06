@@ -16,11 +16,11 @@ import {
 
 const REPOS_DIR = `${process.cwd()}/repos`
 const HOLOCHAIN_REPO_NAME = `holochain/holochain`
-const OCTOKIT = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
+const GITHUB = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
 
 export async function fetchRepos() {
   const repoListPromises = GITHUB_ORGS_ALL_REPOS.map((githubOrg) => {
-    return OCTOKIT.rest.repos.listForOrg({
+    return GITHUB.rest.repos.listForOrg({
       org: githubOrg,
       sort: 'pushed',
       per_page: MAX_REPOS,
@@ -58,7 +58,7 @@ export function filterRepos(repos) {
 export async function addWorkflows(repos) {
   const workflowPromises = repos.map((repo) => {
     assertExists(repo.owner)
-    return OCTOKIT.rest.actions.listRepoWorkflows({ owner: repo.owner.login, repo: repo.name })
+    return GITHUB.rest.actions.listRepoWorkflows({ owner: repo.owner.login, repo: repo.name })
   })
   const workflows = await Promise.all(workflowPromises)
   // .catch(console.error)
