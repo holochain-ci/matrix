@@ -10,7 +10,7 @@ import {
 import { updateRepoForks } from '$lib/updateForks'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export async function get(): Promise<{ body: { repos: Array<RepoForUi> } }> {
+export async function get(): Promise<{ body: { repos: RepoForUi[] } }> {
   let repos
   repos = await fetchRepos()
   repos = sortRepos(repos, 'pushed_at')
@@ -34,7 +34,7 @@ type RepoForUi = {
 }
 
 // trim down to the fields needed by interface
-function fieldsForUi(repos): Array<RepoForUi> {
+function fieldsForUi(repos): RepoForUi[] {
   repos = repos.map((repo) => {
     const workflowData = repo.workflows.map((workflow) => {
       return {

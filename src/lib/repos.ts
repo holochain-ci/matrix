@@ -16,6 +16,7 @@ import {
 
 const REPOS_DIR = `${process.cwd()}/repos`
 const HOLOCHAIN_REPO_NAME = `holochain/holochain`
+const HOLOCHAIN_DIR = `${REPOS_DIR}/${HOLOCHAIN_REPO_NAME}`
 const GITHUB = new Octokit({ auth: PUBLIC_REPOS_GITHUB_ACCESS_TOKEN })
 
 export async function fetchRepos() {
@@ -96,9 +97,9 @@ export function cloneOrUpdateLocalCopyByName(
   const repoDir = `${REPOS_DIR}/${repoFullName}`
   if (existsSync(`${repoDir}/.git/`)) {
     if (UPDATE_EXISTING_REPOS === true || options.updateExistingRepo === true) {
-      run(`cd ${repoDir} && git fetch`)
-      run(`cd ${repoDir} && ( git reset FETCH_HEAD --hard || git reset --hard )`)
-      run(`cd ${repoDir} && git clean -fd`)
+      run(`git fetch`, { cwd: repoDir })
+      run(`git reset FETCH_HEAD --hard || git reset --hard`, { cwd: repoDir })
+      run(`git clean -fd`, { cwd: repoDir })
     }
   } else {
     run(`git clone --quiet https://github.com/${repoFullName}.git ${repoDir}`)
@@ -125,13 +126,18 @@ export function addHolochainVersionData(repo) {
 export function getholochainVersionDate(holochainVersion) {
   const STRICT_ISO_8601_DATE = '%cI'
   return run(
-    `cd ${REPOS_DIR}/${HOLOCHAIN_REPO_NAME} && ` +
-      `git show --no-patch --no-notes --pretty='${STRICT_ISO_8601_DATE}' ${holochainVersion}`
+    `git show
+       --no-patch
+       --no-notes
+       --pretty='${STRICT_ISO_8601_DATE}'
+       ${holochainVersion}
+    `,
+    { cwd: HOLOCHAIN_DIR }
   ).trim()
 }
 
 export function indexHolochainVersions(repos) {
-  const dates: Array<string> = []
+  const dates: string[] = []
   repos.forEach((repo) => {
     const date = repo.nix_holochain_version_date
     if (date && !dates.includes(date)) {
