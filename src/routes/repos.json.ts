@@ -18,7 +18,7 @@ export async function get(): Promise<{ body: { repos: RepoForUi[] } }> {
   repos = await addWorkflows(repos)
   repos = await addHolochainVersionDataToRepos(repos)
   repos = indexHolochainVersions(repos)
-  repos = await updateRepoForks(repos)
+  // repos = await updateRepoForks(repos)
   repos = fieldsForUi(repos)
 
   return { body: { repos } }

@@ -13,6 +13,29 @@ const HOLOCHAIN_DIR = `${REPOS_DIR}/${HOLOCHAIN_REPO_NAME}`
 const GITHUB = new Octokit({ auth: ADMIN_ORG_GITHUB_ACCESS_TOKEN })
 
 export async function updateRepoForks(repos: any) {
+  const octokit = GITHUB
+
+  // const hRepos = await octokit.request(`GET /orgs/${HOLOMATRIX_ORG}/repos`, {})
+  // // console.log(hRepos)
+
+  // hRepos.data.forEach(async (hRepo) => {
+  //   // delete repo:
+  //   await octokit.request(`DELETE /repos/${HOLOMATRIX_ORG}/${hRepo.name}`)
+  //   console.log(`deleted: ${hRepo.name}`)
+  // })
+  // return repos
+
+  // await octokit.request(`POST /orgs/${HOLOMATRIX_ORG}/repos`, {
+  //   name: 'wikinodes-net---wikinodes',
+  // })
+
+  // await octokit.request(`POST /repos/${owner}/${repo}/pulls`, {
+  //   owner: 'wikinodes-net',
+  //   repo: 'wikinodes',
+  //   head: `${HOLOMATRIX_ORG}:main`,
+  //   base: 'main',
+  // })
+
   const forkableRepos = filterReposOnlyWithHolochainVersion(repos)
   repos = await createOrUpdateForks(forkableRepos)
 
@@ -37,23 +60,54 @@ async function createOrUpdateForks(forkableRepos: []) {
 }
 
 async function createOrUpdateFork(repo) {
-  const forkResult = await GITHUB.rest.repos.createFork({
-    owner: repo.owner.login,
-    repo: repo.name,
-    organization: HOLOMATRIX_ORG,
-  })
+  const octokit = GITHUB
 
-  const fork = forkResult.data
-  // console.log('fork created or touched')
-  const newForkName = `${repo.owner.login}---${repo.name}`
-  if (fork.name !== newForkName) {
-    await GITHUB.rest.repos.update({
-      owner: HOLOMATRIX_ORG,
-      repo: fork.name,
-      name: newForkName,
+  const holomatrixRepoName = `${repo.owner.login}---${repo.name}`
+  console.log(`apropos: ${holomatrixRepoName}`)
+
+  // // delete repo:
+  // await octokit.request(`DELETE /repos/${HOLOMATRIX_ORG}/${holomatrixRepoName}`)
+  // console.log(`deleted: ${holomatrixRepoName}`)
+
+  // // // delete repo 2:
+  // octokit.rest.repos
+  //   .delete({
+  //     owner: HOLOMATRIX_ORG,
+  //     repo: holomatrixRepoName,
+  //   })
+  //   .catch(() => console.warn('could not delete'))
+  // // console.log(`deleted 2: ${holomatrixRepoName}`)
+
+  // create repo:
+  const holomatrixRepoResponse = await octokit
+    .request(`POST /orgs/${HOLOMATRIX_ORG}/repos`, {
+      name: holomatrixRepoName,
     })
-    // console.log('fork name updated')
-  }
+    .then(() => console.log(`created: ${holomatrixRepoName}`))
+    .catch(() => console.warn(`could not create: ${holomatrixRepoName}`))
+
+  // fork repo:
+  // we abandoned this because we have to manually click to allow repo actions on forks,
+  // even after doing it via API :(
+  //
+  // const forkResult = await GITHUB.rest.repos.createFork({
+  //   owner: repo.owner.login,
+  //   repo: repo.name,
+  //   organization: HOLOMATRIX_ORG,
+  // })
+
+  // const fork = forkResult.data
+  // // console.log('fork created or touched')
+  // const newForkName = `${repo.owner.login}---${repo.name}`
+  // if (fork.name !== newForkName) {
+  //   await GITHUB.rest.repos.update({
+  //     owner: HOLOMATRIX_ORG,
+  //     repo: fork.name,
+  //     name: newForkName,
+  //   })
+  //   // console.log('fork name updated')
+  // }
+
   // const result = await GITHUB.rest.actions
   //   .enableSelectedRepositoryGithubActionsOrganization({
   //     org: HOLOMATRIX_ORG,
@@ -73,21 +127,20 @@ async function createOrUpdateFork(repo) {
   // console.log(response)
 
   // console.log(repo.id)
-  response = await GITHUB.request(
-    `PUT /orgs/${HOLOMATRIX_ORG}/actions/permissions/repositories/${fork.id}`,
-    { repository_id: fork.id }
-  )
-  console.log(`enabled actions for ${newForkName}`)
-  /////
+  // response = await GITHUB.request(
+  //   `PUT /orgs/${HOLOMATRIX_ORG}/actions/permissions/repositories/${holomatrixRepo.id}`,
+  //   { repository_id: holomatrixRepo.id }
+  // )
+  // console.log(`enabled actions for ${newForkName}`)
 
-  const octokit = GITHUB
+  //
 
-  await octokit.request(`PUT /repos/${HOLOMATRIX_ORG}/${newForkName}/actions/permissions`, {
+  await octokit.request(`PUT /repos/${HOLOMATRIX_ORG}/${holomatrixRepoName}/actions/permissions`, {
     enabled: true,
   })
-  console.log(`enabled actions at repo level for ${newForkName}`)
+  console.log(`enabled actions at repo level for ${holomatrixRepoName}`)
 
-  const remote = `https://github.com/${HOLOMATRIX_ORG}/${newForkName}.git`
+  const remote = `https://git:${ADMIN_ORG_GITHUB_ACCESS_TOKEN}@github.com/${HOLOMATRIX_ORG}/${holomatrixRepoName}.git`
 
   const repoDir = `${REPOS_DIR}/${repo.full_name}`
   const holochainCandidateRefs = holochainRefsAfter(repo.nix_holochain_version_date, 1)
@@ -107,7 +160,18 @@ async function createOrUpdateFork(repo) {
     const branch = repo.default_branch
     run(`git checkout ${branch}`, { cwd: repoDir })
 
-    run(`git commit --allow-empty -m'Holomatrix test'`, { cwd: repoDir })
+    run(
+      `git
+         -c user.name='HoloMatrix Bot'
+         -c user.email='88608248+holomatrix-bot@users.noreply.github.com'
+         commit
+           --allow-empty
+           --message 'HoloMatrix test'
+      `,
+      {
+        cwd: repoDir,
+      }
+    )
     run(`git push --force ${remote} ${branch}:${branch}`, { cwd: repoDir })
   })
   // }

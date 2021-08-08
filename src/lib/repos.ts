@@ -132,7 +132,7 @@ export function getholochainVersionDate(holochainVersion) {
        --pretty='${STRICT_ISO_8601_DATE}'
        ${holochainVersion}
     `,
-    { cwd: HOLOCHAIN_DIR }
+    { cwd: HOLOCHAIN_DIR, quietCommand: true, quietResponse: true }
   ).trim()
 }
 
