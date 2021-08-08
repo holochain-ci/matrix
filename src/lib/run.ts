@@ -11,6 +11,7 @@ const { exec, exit } = shelljs
 
 type Options = {
   color?: boolean
+  cwd?: string
   relaxed?: boolean
   quiet?: boolean
   quietCommand?: boolean
@@ -30,14 +31,14 @@ export function run(command: string, options: Options = {}): string {
   command = command.replace(/\s+/g, ' ')
 
   if (!options.quietCommand) {
-    let prettyCommand = `\n==> ${command}   ${
-      isEmpty(originalOptions) ? '' : '# ' + JSON.stringify(originalOptions)
-    }`
-    if (options.color) {
-      prettyCommand = chalk.green(prettyCommand)
-    }
+    let prettyCommand = `\n==> ${command}`
+    if (options.color) prettyCommand = chalk.green(prettyCommand)
+
+    let comment = `   ${isEmpty(originalOptions) ? '' : '# ' + JSON.stringify(originalOptions)}`
+    if (options.color) comment = chalk.grey(comment)
+
     // eslint-disable-next-line no-console
-    console.log(prettyCommand)
+    console.log(prettyCommand + comment)
   }
 
   const result = exec(command, merge(options, { silent: options.quietResponse }))
@@ -49,5 +50,5 @@ export function run(command: string, options: Options = {}): string {
     exit(exitCode)
   }
 
-  return result
+  return result.trim()
 }
