@@ -1,20 +1,15 @@
 import { Octokit } from 'octokit'
 import dayjs from 'dayjs'
-import { readFileSync, existsSync } from 'fs'
 import Promise from 'bluebird'
 
-import { run } from '$lib/run'
-import { assertEqual, assertExists, assertPresent } from '$lib/assert'
+import { assertEqual, assertExists } from '$lib/assert'
 import {
   GITHUB_ACCESS_TOKEN,
   GITHUB_ORGS_ALL_REPOS,
   MAX_DAYS_SINCE_LAST_PUSH,
   MAX_REPOS,
-  UPDATE_EXISTING_REPOS,
 } from '$lib/env'
 
-const REPOS_DIR = `${process.cwd()}/repos`
-const HOLOCHAIN_REPO_NAME = `holochain/holochain`
 const OCTOKIT = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -24,8 +19,6 @@ export async function get(): Promise<{ body: { repos: Array<RepoForUi> } }> {
   repos = sortRepos(repos)
   repos = filterRepos(repos)
   repos = await addWorkflows(repos)
-  // repos = await addHolochainVersionDataToRepos(repos)
-  // repos = indexHolochainVersions(repos)
   repos = fieldsForUi(repos)
 
   return { body: { repos } }
@@ -83,85 +76,6 @@ async function addWorkflows(repos) {
   return repos
 }
 
-async function addHolochainVersionDataToRepos(repos) {
-  cloneOrUpdateLocalCopyByName(HOLOCHAIN_REPO_NAME, { updateExistingRepo: true })
-  repos = await Promise.map(
-    repos,
-    (repo) => {
-      cloneOrUpdateLocalCopy(repo)
-      repo = addHolochainVersionData(repo)
-      return repo
-    },
-    { concurrency: 5 }
-  )
-  return repos
-}
-
-function cloneOrUpdateLocalCopy(repo): void {
-  assertPresent(repo.full_name)
-  cloneOrUpdateLocalCopyByName(repo.full_name)
-}
-
-function cloneOrUpdateLocalCopyByName(
-  repoFullName: string,
-  options = { updateExistingRepo: false }
-): void {
-  const repoDir = `${REPOS_DIR}/${repoFullName}`
-  if (existsSync(`${repoDir}/.git/`)) {
-    if (UPDATE_EXISTING_REPOS === true || options.updateExistingRepo === true) {
-      run(`cd ${repoDir} && git fetch`)
-      run(`cd ${repoDir} && ( git reset FETCH_HEAD --hard || git reset --hard )`)
-      run(`cd ${repoDir} && git clean -fd`)
-    }
-  } else {
-    run(`git clone --quiet https://github.com/${repoFullName}.git ${repoDir}`)
-  }
-}
-
-function addHolochainVersionData(repo) {
-  const NIX_HC_VERSION_PATTERN =
-    /holochainVersion\s*=\s*{\s*rev\s*=\s*"(?<holochainVersion>[0-9a-f]{40})"/
-  const repoDir = `${REPOS_DIR}/${repo.full_name}`
-  const nixPath = `${repoDir}/default.nix`
-  if (existsSync(nixPath)) {
-    const nixConfig = readFileSync(nixPath).toString()
-    const match = NIX_HC_VERSION_PATTERN.exec(nixConfig)
-    const holochainVersion = match?.groups?.holochainVersion
-    if (holochainVersion) {
-      repo.nix_holochain_version = holochainVersion
-      repo.nix_holochain_version_date = getholochainVersionDate(holochainVersion)
-    }
-  }
-  return repo
-}
-
-function getholochainVersionDate(holochainVersion) {
-  const STRICT_ISO_8601_DATE = '%cI'
-  return run(
-    `cd ${REPOS_DIR}/${HOLOCHAIN_REPO_NAME} && ` +
-    `git show --no-patch --no-notes --pretty='${STRICT_ISO_8601_DATE}' ${holochainVersion}`
-  ).trim()
-}
-
-function indexHolochainVersions(repos) {
-  const dates: Array<string> = []
-  repos.forEach((repo) => {
-    const date = repo.nix_holochain_version_date
-    if (date && !dates.includes(date)) {
-      dates.push(date)
-    }
-  })
-  dates.sort()
-  repos = repos.map((repo) => {
-    const date = repo.nix_holochain_version_date
-    if (date) {
-      repo.nix_holochain_version_date_index = dates.length - (dates.indexOf(date) + 1)
-    }
-    return repo
-  })
-  return repos
-}
-
 type RepoForUi = {
   default_branch: string
   full_name: string
@@ -183,9 +97,6 @@ function fieldsForUi(repos): Array<RepoForUi> {
     return {
       default_branch: repo.default_branch,
       full_name: repo.full_name,
-      // nix_holochain_version: repo.nix_holochain_version,
-      // nix_holochain_version_date: repo.nix_holochain_version_date,
-      // nix_holochain_version_date_index: repo.nix_holochain_version_date_index,
       pushed_at: repo.pushed_at,
       workflows: workflowData,
     }
