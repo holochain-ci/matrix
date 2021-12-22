@@ -24,8 +24,8 @@ export async function get(): Promise<{ body: { repos: Array<RepoForUi> } }> {
   repos = sortRepos(repos)
   repos = filterRepos(repos)
   repos = await addWorkflows(repos)
-  repos = await addHolochainVersionDataToRepos(repos)
-  repos = indexHolochainVersions(repos)
+  // repos = await addHolochainVersionDataToRepos(repos)
+  // repos = indexHolochainVersions(repos)
   repos = fieldsForUi(repos)
 
   return { body: { repos } }
@@ -139,7 +139,7 @@ function getholochainVersionDate(holochainVersion) {
   const STRICT_ISO_8601_DATE = '%cI'
   return run(
     `cd ${REPOS_DIR}/${HOLOCHAIN_REPO_NAME} && ` +
-      `git show --no-patch --no-notes --pretty='${STRICT_ISO_8601_DATE}' ${holochainVersion}`
+    `git show --no-patch --no-notes --pretty='${STRICT_ISO_8601_DATE}' ${holochainVersion}`
   ).trim()
 }
 
@@ -183,9 +183,9 @@ function fieldsForUi(repos): Array<RepoForUi> {
     return {
       default_branch: repo.default_branch,
       full_name: repo.full_name,
-      nix_holochain_version: repo.nix_holochain_version,
-      nix_holochain_version_date: repo.nix_holochain_version_date,
-      nix_holochain_version_date_index: repo.nix_holochain_version_date_index,
+      // nix_holochain_version: repo.nix_holochain_version,
+      // nix_holochain_version_date: repo.nix_holochain_version_date,
+      // nix_holochain_version_date_index: repo.nix_holochain_version_date_index,
       pushed_at: repo.pushed_at,
       workflows: workflowData,
     }
