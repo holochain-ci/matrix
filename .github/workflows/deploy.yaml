@@ -44,6 +44,7 @@ jobs:
             holochain-in-action
             holochain-open-dev
             juntofoundation
+            lightningrodlabs
           # possible additions include:
           # glassbeadsoftware
           # perspect3vism
